@@ -16,7 +16,16 @@ const port = process.env.PORT || 8080
 
 //middlewares
 app.use(express.json())
-app.use(cors({ credentials: true, origin: 'http://localhost:3000' })); 
+const allowedOrigins = ['http://localhost:3000', 'https://astonishing-kelpie-6399c5.netlify.app'];
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  }
+}));
  app.use(cookieParser());
 
  app.use("/api/auth", authRoutes); 

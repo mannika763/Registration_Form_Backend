@@ -9,7 +9,7 @@ const editUser = async (req, res) => {
 console.log("id",id)
       // Update user by ID in the database
       const result = await UserCityWise.findOneAndUpdate({ id }, updatedData, { new: true });
-
+console.log("result in edit",result)
         if (!result) {
             return res.status(404).json({ message: "User not found" });
         }
